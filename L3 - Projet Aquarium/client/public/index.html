@@ -1,0 +1,64 @@
+<!-- PONCIN Séverin & PTACEK Charles -->
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aquarium</title>
+    <!-- Load Vue followed by Vue Router -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/http-vue-loader/src/httpVueLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router/dist/vue-router.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <a href="#/">
+          <h1>Aquarium</h1>
+        </a>
+        <nav v-if="user === undefined">
+          <router-link to="/">Accueil</router-link>
+          <a href="#/login">Connexion</a>
+        </nav>
+        <nav v-else>
+          <router-link to="/aquarium">Aquarium</router-link>
+          <router-link to="/fishs">Poissons</router-link>
+          <router-link to="/backgrounds">Décors</router-link>
+          <div class="header-button">
+            <p>Profile</p>
+            <div>
+              <p>email : {{user.email}}</p>
+              <p>id : {{user.id}}</p>
+              <button @click="deleteUser">déconnexion</button>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <router-view
+          :user="user"
+          :fishs="fishs"
+          :backgrounds="backgrounds"
+          :background="background"
+          @deletebackground="deleteBackground"
+          @sendbackground="sendBackground"
+          @setcurrentbackground="setCurrentBackground"
+          @registeruser="registerUser"
+          @loginuser="loginUser"
+          @createfish="createFish"
+          @deletefish="deleteFish"
+          @modifyfish="modifyFish"
+        ></router-view>
+      </main>
+
+      <footer>
+        <p>&#169; Seraleme</p>
+      </footer>
+    </div>
+    <script src="/vue-application.js"></script>
+  </body>
+</html>
